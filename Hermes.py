@@ -12,6 +12,7 @@ import pygame
 from gtts import gTTS
 import random
 
+
 API_KEY = '2PY0c8RpBJBELddc6y1NFsVUwBqyRxfr'
 
 location = "37.83805150,27.83839305"
@@ -36,7 +37,7 @@ def sil_benzer_dosyalari(dizin, kisim):
         except Exception as e:
             print(f"{dosya} silinemedi. Hata: {e}")
 
-dizin = "C:\\Users\\pc\\Desktop\\Hermes"
+dizin = "C:\\Users\\akbab\\OneDrive\\Masaüstü\\Hermes\\Hermes"
 kisim = "ses"
 sil_benzer_dosyalari(dizin, kisim)
 
@@ -87,13 +88,13 @@ def listen_and_respond(source):
         print(Style.RESET_ALL)
         audio = r.listen(source)
         try:
-            dizin = "C:\\Users\\pc\\Desktop\\Hermes"
+            dizin = "C:\\Users\\akbab\\OneDrive\\Masaüstü\\Hermes\\Hermes"
             kisim = "ses"
 
             def generate_random_number(start, end):
                 return random.randint(start, end - 1)
             random_number = generate_random_number(1, 100)
-            soundLocation = f"C:\\Users\\pc\\Desktop\\Hermes\\ses{random_number}.mp3"
+            soundLocation = f"C:\\Users\\akbab\\OneDrive\\Masaüstü\\Hermes\\Hermes\\ses{random_number}.mp3"
 
             def play():
                 pygame.init()
@@ -171,6 +172,7 @@ def listen_and_respond(source):
                 listen_and_respond(source)
 
             sozluk = {
+                "what's your name":"My name is Hermes!",
                 "what is your name":"My name is Hermes!",
                 "what can you do":"I can answer  questions and provide information.",
                 "what's your daily routine like":"Answer all your quesitons.",
@@ -200,9 +202,6 @@ def listen_and_respond(source):
             if "what time is it" in text.lower():
                 zaman()
 
-            if "what's the time" in text.lower():
-                zaman()
-
             keys = list(sozluk.keys())
             if text.lower() in sozluk:
                 konus(sozluk[text.lower()],soundLocation)
@@ -220,17 +219,6 @@ def listen_and_respond(source):
 
             #seconds = pygame.mixer.Sound(soundLocation).get_length()
             #print(f"Cevap Süresi: {seconds}")
-
-            while True:
-                ses = r.listen(source)
-                lfors = r.recognize_google(ses)
-                if "stop" in lfors.lower():
-                    print("DEBUG: Stop algılandı.")
-                    print("Stopped")
-                    pygame.mixer.music.stop()
-                    pygame.quit()
-                    return listen_and_respond(source)
-                break
     
         except sr.UnknownValueError:
             #print("Ops! Sorry I couldn't understand you.")
